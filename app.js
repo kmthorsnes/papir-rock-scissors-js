@@ -16,7 +16,7 @@ var cpuChoice = {
     this.text = readable[this.store];
   },
   store: '',
-  text:  ''
+  text: ''
 };
 
 cpuChoice.init();
@@ -29,17 +29,40 @@ var order = [0, 1, 2, 0];
 
 // adds conditionals
 
-var chooseWinner = function(player, cpu){
-  if(order[player] === order[cpu]) {
-    return 'Tied game. Try again?';
+var chooseWinner = function(player, cpu) {
+  if (order[player] === order[cpu]) {
+    return 'Tied game :| Try again? ';
   }
-  if(order[player] === order[cpu + 1]) {
+  if (order[player] === order[cpu + 1]) {
     score++;
-    return "Hooray, you are the winner!";
+    return 'Hooray, you are the winner! :)';
   } else {
     score--;
-    return "Bummer! You lost this time";
+    return 'Bummer! You lost this time ;(';
   }
 }
 
-console.log(chooseWinner(2, 0));
+// Interface
+
+var paragraph = document.querySelector('p');
+
+var assignClick = function(tag, pos) {
+  tag.addEventListener('click', function() {
+    playerChoice = pos;
+    cpuChoice.init();
+    paragraph.innerText = 'The computaaaah chose: ' + cpuChoice.text
+    paragraph.innerText += '\n' + chooseWinner(playerChoice, cpuChoice.store);
+    paragraph.innerText += '\n' + 'Your score: ' + score;
+  });
+}
+
+var images = {
+  tags: document.getElementsByTagName('img'),
+  init: function() {
+    for (var step = 0; step < this.tags.length; step++) {
+      assignClick(this.tags[step], step);
+    }
+  }
+}
+
+images.init();
