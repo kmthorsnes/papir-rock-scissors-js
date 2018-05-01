@@ -10,5 +10,14 @@ var readable = {
 };
 
 // Creates random number 0-3
-var cpuChoice = Math.floor(Math.random() * 3);
-console.log('cpuChoice', cpuChoice);
+var cpuChoice = {
+  init: function() {
+    this.store = Math.floor(Math.random() * 3);
+    this.text = readable[this.store];
+  },
+  store: '',
+  text:  ''
+};
+
+cpuChoice.init();
+console.log('cpuchoice:', cpuChoice.store, cpuChoice.text);
